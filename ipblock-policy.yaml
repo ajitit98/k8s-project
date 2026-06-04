@@ -1,3 +1,8 @@
+# this policy is used  for ingress if you want to apply same policy to egress only thing need to change is place of -from we canb used -to and other thing remai
+# the same 
+# for ingress we use -from 
+# form egress we use - to 
+#####################################
 apiVersion: networking.k8s.io/vi 
 kind: NetworkPolicy 
 metadata: 
