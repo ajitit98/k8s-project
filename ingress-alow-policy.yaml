@@ -1,0 +1,18 @@
+
+apiVersion: networking.k8s.io/vi 
+kind: NetworkPolicy 
+metadata: 
+  name: ingress-policy
+  namespace: default 
+spec: 
+  podSelector:  # it will apply this rule on pod having labels app:web 
+    matchLabels: 
+      app: web 
+  policyTypes: 
+    - Ingress
+    - Egress 
+  ingress:   # this will allow the incoming traffic to pod having labels app: db and all egress rule are deny by default 
+    - from: 
+      - podSelector: 
+         matchLabels: 
+           app: db   
