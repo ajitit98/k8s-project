@@ -1,0 +1,65 @@
+apiVersion: networking.k8s.io/vi 
+kind: NetworkPolicy 
+metadata: 
+  name: ipblock-policy 
+  namespace: default 
+spec: 
+  podSelector: 
+    matchLabels: 
+      app: db 
+  policyType: 
+    - Ingress 
+    - Egress 
+  ingress: 
+    - from: 
+       - ipblock: 
+         cidr: 10.0.0.1/16
+         except: 
+           - 10.0.0.2.10/16
+
+# To specific port 
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: 
+  name: specific-port-policy
+  namespace: default 
+spec: 
+  podSelector: 
+    matchLabels: 
+      app: db 
+  policyType: 
+    - Ingress
+  ingress: 
+    - from: 
+      - ipBlock: 
+        cidr: 10.0.0.0/24
+        except: 
+         - 10.0.1.0/24 
+  ports: 
+    - port: 3306
+      protocol: TCP 
+
+
+# different range of ports 
+---
+apiVersion: networking.k8s.k8s.io/v1 
+kind: NetworkPolicy
+metadata: 
+  name: port-range-policy 
+  namespace: default 
+spec: 
+  podSelector: 
+    matchLabels: 
+      app: db 
+  policyType:
+    ingress: 
+     - from: 
+        ipBlock: 
+          cidr: 10.0.1.0/24
+        excpt: 
+         - 10.0.2.0/24 
+    ports: 
+      - port: 3000
+        endPort: 3500 
+        protocol: TCP       
