@@ -1,4 +1,4 @@
-
+# Ingress allow policy
 apiVersion: networking.k8s.io/vi 
 kind: NetworkPolicy 
 metadata: 
@@ -15,4 +15,28 @@ spec:
     - from: 
       - podSelector: 
          matchLabels: 
-           app: db   
+           app: db 
+
+           
+  # egress deny policy 
+  apiVersion: networking.k8s.io/v1 
+  kind: NetworkPolicy 
+  metadata: 
+    name: egress-policy 
+    namespace: default 
+  spec: 
+    podSelector: 
+      matchLabels: 
+        app:web 
+    policyType: 
+      - Egress
+    egress: 
+     - to: 
+       - podSelector: 
+         matchLabels: 
+           app: db 
+           
+           
+
+
+           
