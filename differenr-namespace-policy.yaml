@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1 
+kind: NetworkPolicy 
+metadata: 
+  name: namespace-selector-policy 
+sepc: 
+  podSelector: 
+    app: db 
+  networkPolicy: 
+    - Ingress 
+  ingress: 
+    - from: 
+      - namespaceSelector:  # it will allow ingress traffice to different namespaces 
+        matchLabels: 
+          app: web
+
