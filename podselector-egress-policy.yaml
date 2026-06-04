@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io.v1 
+kind: NetworkPolicy 
+metadata: 
+  name: egress-ploicy 
+  namespace: default 
+spec: 
+  podSelector: 
+    matchLabels: 
+      app: db
+  policyType: 
+    - Ingress 
+    - Egress 
+  egress:
+    - from: 
+      - podSelector:
+        matchLabels: 
+          app: web          # this will allow the web application to accept the dm traffic
